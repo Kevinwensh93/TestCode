@@ -15,7 +15,7 @@ def is_point_in_rectangle(point, vertex1, vertex2) # rectangle whose edges are p
   return true # if satisfies both conditions return true (default)
 end
 
-# input is array of tuple arrays - we are assuming consistentclockwise/counterclockwise order.
+# input is array of tuple arrays - we are assuming consistent clockwise/counterclockwise order.
 def is_point_in_convex_polygon(point, vertices)
   x, y = point
 
@@ -48,7 +48,7 @@ def is_point_in_convex_polygon(point, vertices)
         return false
       end
       # We do not need to check purely vertical/horizontal edges as this'll have been taken care of via the is_small_rectangle flag. if the point is in the mini-rectangle with 0 height or width it's on the edge itself.
-      # For non-edge inclusive implementation we WOULD want to check if it is vertical or horizontal and return false if it's captured by the mini-rectangle...
+      # For non-edge inclusive implementation we WOULD want to che ckif it is vertical or horizontal and return false if it's captured by the mini-rectangle...
 
     end
   end

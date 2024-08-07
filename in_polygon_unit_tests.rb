@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require_relative 'in_polygon_convex'
+require_relative 'in_polygon'
 
 class TestMethods < Minitest::Test
   def test_point_in_rectangle
@@ -52,7 +53,32 @@ class TestMethods < Minitest::Test
   end
 
   def test_is_point_in_polygon
-    vertices = [[0, 0], [4, 2], [2, 2], [2, 8], [8, 0], [10, 10], [0, 10]]
+    vertices_concave = [[0, 0], [4, 2], [2, 2], [2, 8], [8, 0], [10, 10], [0, 10]]
+    vertices_convex = [[0, 0], [4, 2], [8, 0], [10, 5], [6, 8], [2, 6]]
+
+    [vertices_concave, vertices_convex].each do |vertices|
+      # Inside
+      [[1, 1]].each do |point|
+        assert_equal true, is_point_in_polygon(point, vertices)
+      end
+
+      # Outside
+      [[100, 100], [3, 1]].each do |point|
+        assert_equal false, is_point_in_polygon(point, vertices)
+      end
+
+      # Edge
+      # puts "#{generate_midpoints(vertices)}"
+      midpoints = generate_midpoints(vertices)
+      midpoints.each do |point|
+        assert_equal true, is_point_in_polygon(point, vertices)
+      end
+
+      # Vertex - we can just loop through all vertices
+      vertices.each do |point|
+        assert_equal true, is_point_in_polygon(point, vertices)
+      end
+    end
   end
 end
 
