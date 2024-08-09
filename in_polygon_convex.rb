@@ -41,14 +41,14 @@ def is_point_in_convex_polygon(point, vertices)
       
       # For a convex polygon we expect delta-y over delta-x for the point to the be greater than for vertex to the next adjacent vertex
       # Although this check runs inside a loop, it is only run once. the in_small_rectangle condition can only be satisfied for one set of vertices
-      vertex_to_vertex_slope = (vy2 - vy1).to_f.abs / (vx2 - vx1).to_f.abs # btw, ruby allows divide by zero. It turns into Float::INFINITY and can be used in comparisons - for another language we'd need an if statement to take care of this
+      vertex_to_vertex_slope = (vy2 - vy1).to_f.abs / (vx2 - vx1).to_f.abs # btw, ruby allows divide by zero with float values. It turns into Float::INFINITY and can be used in comparisons - for another language we'd need an if statement to take care of this
       vertex_to_point_slope = (y - vy1).to_f.abs / (x - vx1).to_f.abs
       # puts "#{vertex_to_vertex_slope} and #{vertex_to_point_slope}"
       if vertex_to_point_slope < vertex_to_vertex_slope # <= if non-edge-inclusive
         return false
       end
       # We do not need to check purely vertical/horizontal edges as this'll have been taken care of via the is_small_rectangle flag. if the point is in the mini-rectangle with 0 height or width it's on the edge itself.
-      # For non-edge inclusive implementation we WOULD want to che ckif it is vertical or horizontal and return false if it's captured by the mini-rectangle...
+      # For non-edge inclusive implementation we WOULD want to check if it is vertical or horizontal and return false if it's captured by the mini-rectangle...
 
     end
   end
